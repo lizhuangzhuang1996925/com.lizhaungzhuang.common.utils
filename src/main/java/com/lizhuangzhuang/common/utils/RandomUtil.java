@@ -1,7 +1,10 @@
 package com.lizhuangzhuang.common.utils;
 
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 
 /** 
@@ -21,14 +24,14 @@ public class RandomUtil {
 	public static int[] subRandom (int min, int max, int subs){
 		Random r=new Random();
 		int[] a = null;
-		for (int i = 0; i < subs; i++) {
+		/*for (int i = 0; i < subs; i++) {
 			int b=(r.nextInt(max-min+1)+min);
 			if(i!=0&&b!=a[i-1]) {
 				a[i]=b;
 			}
 			a[i]=b;
-		}
-		/*Set<Integer> s=new HashSet<Integer>();
+		}*/
+		Set<Integer> s=new HashSet<Integer>();
 		while (s.size()!=subs) {
 			s.add((r.nextInt(max-min+1)+min));
 		}
@@ -38,7 +41,7 @@ public class RandomUtil {
 			Integer next = iterator.next();
 			a[0]=next;
 			i++;
-		}*/
+		}
 		return a;
 	}
 	//方法3：返回1个1-9,a-Z之间的随机字符。 (8分)

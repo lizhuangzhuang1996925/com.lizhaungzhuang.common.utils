@@ -1,6 +1,8 @@
 package com.lizhuangzhuang.common.utils;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 /** 
@@ -10,6 +12,30 @@ import java.util.Random;
  * @date: 2019年6月17日 上午9:02:02  
  */
 public class StringUtil {
+	//日期
+	public static String date() throws UnsupportedEncodingException{
+		Date created = new Date();
+		Random r=new Random();
+		SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
+			//注册日期属性值模拟2010年1月1日至今任意随机时间（4分）。
+			created.setYear((r.nextInt(2019-2010+1)+2010-1900));
+			created.setMonth(r.nextInt(12)+1);
+			if(created.getMonth()==1||created.getMonth()==3||created.getMonth()==5||created.getMonth()==7||created.getMonth()==8||created.getMonth()==10||created.getMonth()==12) {
+				created.setDate(r.nextInt(31)+1);
+			}else {
+				created.setDate(r.nextInt(30)+1);
+			}
+			//判断闰年平年
+			if((created.getYear()%400==0)&&(created.getYear()%100==0)){
+				if(created.getMonth()==2) {
+					created.setDate(r.nextInt(29)+1);
+				}
+			}else {
+				created.setDate(r.nextInt(28)+1);
+			}
+			return sf.format(created);
+		
+	}
 	//方法1：判断源字符串是否有值，空引号(空白字符串)也算没值 (5分)
 	public static boolean hasLength(String src){
 		if(src!=null&&src.length()>0) {
@@ -26,6 +52,8 @@ public class StringUtil {
 	}
 	//方法3：返回参数length个中文汉字字符串，字符集必须在GB2312(相当于中文简体)范围内，例如“中呀被”(5分)
 	public static String randomChineseString(int length) throws UnsupportedEncodingException{
+		long currentTimeMillis = System.currentTimeMillis();
+		System.out.println(currentTimeMillis);
 		Random r=new Random();
 		String zf="";
 		for (int i = 0; i <length; i++) {
@@ -36,6 +64,8 @@ public class StringUtil {
 				i--;
 			}
 		}
+		long currentTimeMilli = System.currentTimeMillis();
+		System.out.println(currentTimeMilli);
 		return zf;
 	}
 	//方法4：返回中文姓名，必须以真实姓开头，百家姓在“六、附百家姓”里，名使用1-2个随机汉字(8分)，内部调用randomChineseString()方法(3分)。返回示例：“刘呀被”、“欧阳及为”
